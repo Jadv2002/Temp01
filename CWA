@@ -1,0 +1,199 @@
+#!/usr/bin/python3
+import os, sys
+
+try:
+  while True:
+    os.system('clear')
+    print("[*] Cyber Warfare Arms v1.0\n\n")
+
+    option = str(input("{1}--Reconnaissance.                             {6}--Other.\n{2}--Bruteforce Attacks                          {0}--Exit.\n{3}--Denial of Service Attacks.\n{4}--Social Engineering.\n{5}--IRC.\n\ncyberwarfare-# "))
+    
+    if option == '1':
+      while True:
+        os.system('clear')
+        print("[*] Cyber Warfare Arms v1.0 (Recon)\n\n")
+        choice = input("{1}--Port Scan (Stealth)\n{2}--Port Scan (Loud and Fast)\n{0}--Back\n\ncyberwarefare-# ")
+       
+        if choice.strip() == '1':
+          while True:
+            os.system('clear')
+            print("[*] Cyber Warfare Arms v1.0 (Recon)\n\n")
+            choice = input("[+] Run through the tor network? Y/n: ")
+
+            if choice.lower() and choice.strip() == 'y':
+              os.system("chmod +X Recon/StealthPortScan")
+              os.system("torify Recon/StealthPortScan")
+
+            elif choice.strip() and choice.lower() == 'n':
+              os.system("chmod +x Recon/StealthPortScan")
+              os.system("./Recon/StealthPortScan")
+              break
+            else:
+              continue
+        
+        elif choice.strip() == '0':
+          os.system('./CWA') 
+          sys.exit(0)
+
+        elif choice.strip() == '2':
+          while True:
+            os.system('clear')
+            print("[*] Cyber Warfare Arms v1.0 (Recon)\n\n")
+            choice = input("[+] Run through the tor network? Y/n: ")
+
+            if choice.lower() and choice.strip() == 'y':
+              os.system("chmod +X Recon/PortScan")
+              os.system("torify Recon/PortScan")
+
+            elif choice.strip() and choice.lower() == 'n':
+              os.system("chmod +x Recon/PortScan")
+              os.system("./Recon/PortScan")
+              break
+            else:
+              continue
+
+    elif option == '2':
+      while True:
+        os.system('clear')
+        print("[*] Cyber Warfare v1.0 (Bruteforce Attack)\n\n")
+        choice = input("{1}--FTP Bruteforce Attack\n{2}--SSH Bruteforce Attack\n{0}--Back\n\ncyberwarfare-# ")
+        if choice.strip() == '1':
+          while True:
+            os.system("clear")
+            print("[*] Cyber Warfare Arms v1.0 (FTP Bruteforce Attack)\n\n")
+            choice = input("Run through the Tor network? Y/n?\n\ncyberwarfare-# ")
+            if choice.strip() and choice.lower() == 'y':
+              os.system("torify Bruteforce/FTPBruteforce")
+              exit()
+            elif choice.strip() and choice.lower() == 'n':
+              os.system("chmod +x Bruteforce/FTPBruteforce")
+              os.system("./Bruteforce/FTPBruteforce")
+              exit()
+            else:
+              continue
+
+        elif choice.strip() == '2':
+          while True:
+            os.system("clear")
+            print("[*] Cyber Warfare Arms v1.0 (SSH Bruteforce Attack)\n\n")
+            choice = input("Run through the Tor network? Y/n?\n\ncyberwarfare-# ")
+            if choice.strip() and choice.lower() == 'y':
+              os.system("torify Bruteforce/SSHBruteforce")
+              exit()
+            elif choice.strip() and choice.lower() == 'n':
+              os.system("chmod +x Bruteforce/SSHBruteforce") 
+              os.system("./Bruteforce/SSHBruteforce")
+              exit()
+            else:
+              continue
+      
+        elif choice.strip() == '0':
+          os.system("./CWA")
+          exit()
+
+    elif option == '3':
+      while True:
+        os.system('clear')
+        print("[*] Cyber Warfare Arms v1.0 (Denial Of Service Attack)\n\n")
+        choice = input("{1}--LOIC Attack \n{2}--De-Authentication Attack\n{0}--Back\n\ncyberwarfare-# ")
+        if choice.strip() and choice.lower() == '1':
+          while True:
+            os.system("clear")
+            print("Cyber Warfare Arms v1.0 (Denial of Service Attack)\n\n")
+            choice = input("Run through the Tor network? Y/n?\n\ncyberwarfare-# ")
+            if choice.strip() and choice.lower() == 'y':
+              os.system("torify DenialOfService/LOIC")
+            elif choice.strip() and choice.lower() == 'n':
+              os.system("chmod +x DenialOfService/LOIC && ./DenialOfService/LOIC")
+            else:
+              continue
+        elif choice.strip() == '0':
+          os.system("./CWA")
+          exit()
+     #IN DEV
+    elif option.strip() == '4':
+      continue
+
+    elif option.strip() == '5':
+      while True:
+        os.system('clear')
+        print("[*] Cyber Warfare Arms v1.0 (IRC)\n\n")
+        choice = input("{1}--IRC Client (weechat)\n{2}--Bots\n{0}--Back\n\ncyberwarfare-# ")
+        if choice == '1':
+          while True:
+            os.system('clear')
+            print("[*] Cyber Warfare Arms v1.0 (IRC)\n\n")
+            choice = input("[+] Run through the tor relay? Y/n?\n\ncyberwarfare-# ")
+            if choice.lower() == 'y':
+              os.system('service tor start')
+              input("\n[!] NOTE: TO DISABLE TOR YOU MUST TYPE IN A TERMINAL \"service tor stop\" IN A TERMINAL AFTER USE!\n\nPress (Enter) to continue ")
+              os.system('weechat')
+              break
+            elif choice.lower() == 'n':
+              os.system('weechat')
+              break
+            else:
+              continue
+        
+        elif choice == '0':
+          os.system('./CWA')
+          exit()
+  
+    elif option.strip() == '6':
+      while True:
+        os.system("clear")
+        print("[*] Cyber Warfare Arms v1.0 (Other)\n\n")
+        choice = input("{1}--Temporary Email Generator.\n{2}--Encrypted Temporary Chat Room.\n{0}--Exit.\n\ncyberwarfare-# ")
+        if choice.strip() == '1':
+          while True:
+            os.system('clear')
+            print("[*] Cyber Warfare Arms v1.0 (Other)\n\n")
+            choice = input("[+] Run through the Tor network Y/n?\n\ncyberwarfare-# ")
+            if choice.strip() and choice.lower() == 'y':
+              os.system('clear')
+              print("[*] Cyber Warfare Arms v1.0 (Other)\n\n")
+              os.system('sudo service tor start')
+              input("[!] NOTE: TO DISABLE TOR, TYPE IN A TERMINAL \"sudo service tor stop\" Press (Enter) to continue ")
+              os.system('https://www.tempmailaddress.com/')
+              break
+            elif choice.strip() and choice.lower() == 'n':
+              os.system('firefox https://www.tempmailaddress.com/')
+              break  
+
+
+        elif choice.strip() == '2':
+          while True:
+            os.system('clear')
+            print("[*] Cyber Warfare Arms v1.0 (Other)\n\n")
+            choice = input("[+] Run through the Tor network Y/n?\n\ncyberwarfare-# ")
+            if choice.strip() and choice.lower() == 'y':
+              os.system('clear')
+              print("[*] Cyber Warfare Arms v1.0 (Other)\n\n")
+              os.system('sudo service tor start')
+              input("[!] NOTE: TO DISABLE TOR, TYPE IN A TERMINAL \"sudo service tor stop\" Press (Enter) to continue ")
+              os.system('https://www.chatcrypt.com/chat.html')
+              break
+            elif choice.strip() and choice.lower() == 'n':
+              os.system('firefox https://www.chatcrypt.com/chat.html')
+              break
+
+        elif choice.strip() == '0':
+          os.system('./CWA')
+          exit()
+
+    elif option.strip() and option.lower() == 'help':
+      os.system('clear')
+      print("[*] Cyber Warfare Arms v1.0 (Help)\n\n")
+      input("To get started, look at the on screen prompts and type a number of your choice. If the number is valid it will load a list of tools for\nthat group. Press Ctrl + C to cancel or type \"0\" at an on screen prompt anytime the numbers appear.\n\nPress (Enter) to continue ")
+
+    elif option.strip() == '0':
+      os.system("clear")
+      sys.exit(0)
+      break
+
+    else:
+      continue
+
+except KeyboardInterrupt:
+  print("[!] USER REQUESTED A SHUTDOWN... EXITING.")
+  sys.exit(0)

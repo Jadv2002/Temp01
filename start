@@ -1,0 +1,15 @@
+#!/usr/bin/python3
+import os, sys, time
+#NOTE: NOTHING IS BEING USED HERE RIGHT NOW BUT WE PLAN ON ADDING SOME KIND OF ACSII ART FOR THE INTRO INTO THE TOOL.
+
+try:
+  while True:
+     #Print Acsii art
+     #time.sleep(notsureyet)
+     os.system("chmod +x CWA && ./CWA")
+     exit()
+     break
+     
+except KeyboardInterrupt:
+ print("\n\n[!] USER REQUESTED A SHUTDOWN! EXITING...")     
+ sys.exit(1)
