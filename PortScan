@@ -1,0 +1,38 @@
+#!/usr/bin/python2
+import socket, sys, os, time
+
+try:
+  while True:
+    os.system('clear')
+    print("[*] Port Scan - Status: NOT RUNNING!\n\n")
+    HOST = raw_input("[+] Target - Host: ")
+    if len(HOST) == 0:
+      os.system('clear')
+      print("[*] Port Scan - Status: NOT RUNNING!\n\n")
+      print("[!] NOTE: NO HOST ENTERED. USING 127.0.0.1")
+      HOST_IP = '127.0.0.1'
+      break
+    HOST_IP = socket.gethostbyname(HOST)
+    break
+
+
+  os.system('clear')
+  print("[*] Port Scan - Status: RUNNING!\n\n\n[*] Scanning Host: %s for open ports" % HOST_IP)
+  for port in range(0,65535):
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    result = s.connect_ex((HOST_IP,port))
+    if result == 0:
+      print('-' * 80)
+      print("[!] PORT {}    Open".format(port))
+      print('-' * 80)
+      raw_input("\n\n[!] Press (Enter) to return to main screen. (Screen will be cleared) ")
+      os.system('./CWH')
+      break
+
+except KeyboardInterrupt:
+  print("\n\n[!] USER REQUESTED A SHUTDOWN. EXITING...")
+  sys.exit(0)
+except socket.gaierror:
+  print("\n\n[!] ERROR: HOST IS DOWN!")
+  time.sleep(3)
+  os.system('./PortScan')

